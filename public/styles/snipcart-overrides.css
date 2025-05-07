@@ -138,11 +138,54 @@
 .snipcart-modal__container,
 .snipcart-cart__content,
 .snipcart-cart-header {
-  z-index: 30 !important;
+  z-index: 60 !important;
 }
 
 #snipcart-backdrop {
   --tw-bg-opacity: 0.5 !important;
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity)) !important;
-  z-index: 29 !important;
+  z-index: 50 !important;
+}
+
+/* Mobile scrolling fix for checkout steps */
+@media (max-width: 768px) {
+  #snipcart .snipcart-modal__container,
+  .snipcart .snipcart-modal__container {
+    max-height: 100vh !important;
+    height: 100% !important; 
+    overflow-y: auto !important;
+  }
+  
+  #snipcart .snipcart-cart__content,
+  .snipcart .snipcart-cart__content {
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+  
+  /* Fix for billing/payment section scrolling */
+  #snipcart .snipcart-checkout-step,
+  .snipcart .snipcart-checkout-step {
+    overflow-y: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+  
+  /* Fix for payment form fields */
+  #snipcart .snipcart-payment-form,
+  .snipcart .snipcart-payment-form {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+  
+  /* Ensure credit card form is visible */
+  #snipcart .snipcart-form__field--card-expiry,
+  .snipcart .snipcart-form__field--card-expiry,
+  #snipcart .snipcart-form__field--card-number,
+  .snipcart .snipcart-form__field--card-number,
+  #snipcart .snipcart-form__field--card-cvv,
+  .snipcart .snipcart-form__field--card-cvv {
+    visibility: visible !important;
+    display: block !important;
+  }
 } 

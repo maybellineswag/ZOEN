@@ -106,7 +106,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button
               size="lg"
-              className="flex-1 snipcart-add-item"
+              className="flex-1 snipcart-add-item py-6 sm:py-4 text-base"
               data-item-id={product.id}
               data-item-price={product.price}
               data-item-description={product.description}

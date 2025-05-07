@@ -220,3 +220,14 @@
     display: none !important;
   }
 }
+
+/* Fix for product page add to cart button on mobile */
+@media (max-width: 640px) {
+  .snipcart-add-item {
+    min-height: 3.5rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+  }
+}
