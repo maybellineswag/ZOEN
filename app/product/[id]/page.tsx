@@ -65,7 +65,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           <div>
             <h1 className="text-3xl font-medium">{product.name}</h1>
             <p className="mt-2 text-xl">${product.price.toFixed(2)}</p>
