@@ -29,79 +29,79 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [isInitialized, setIsInitialized] = useState(false)
 
-  // Add Snipcart event listeners when the component mounts
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Initialize cart from Snipcart when it's ready
+    if (typeof window !== 'undefined' && !isInitialized) {
       document.addEventListener('snipcart.ready', () => {
         // @ts-ignore - Snipcart types not available
-        window.Snipcart.events.on('item.added', (item: any) => {
-          const product: Product = {
-            id: item.id,
-            name: item.name,
-            description: item.description,
-            price: item.price,
-            image: item.image,
-            category: item.categories?.[0] || '',
-            fabric: item.customFields?.fabric
-          }
-          addToCart(product, item.quantity)
+        window.Snipcart.events.on('item.added', (evt: any) => {
+          // Don't update our cart state when items are added through Snipcart
+          // This prevents double-counting
         })
 
         // @ts-ignore - Snipcart types not available
-        window.Snipcart.events.on('item.removed', (item: any) => {
-          removeFromCart(item.id)
+        window.Snipcart.events.on('item.removed', (evt: any) => {
+          const productId = evt.item.id
+          setCartItems(prevItems => prevItems.filter(item => item.product.id !== productId))
         })
 
         // @ts-ignore - Snipcart types not available
-        window.Snipcart.events.on('item.updated', (item: any) => {
-          updateQuantity(item.id, item.quantity)
+        window.Snipcart.events.on('item.updated', (evt: any) => {
+          const productId = evt.item.id
+          const quantity = evt.item.quantity
+          setCartItems(prevItems => 
+            prevItems.map(item => 
+              item.product.id === productId 
+                ? { ...item, quantity } 
+                : item
+            )
+          )
         })
 
         // @ts-ignore - Snipcart types not available
-        window.Snipcart.events.on('cart.ready', async (cart: any) => {
-          // Clear our cart first
-          setCartItems([])
-          
+        window.Snipcart.events.on('cart.ready', async () => {
           // @ts-ignore - Snipcart types not available
-          const items = await window.Snipcart.store.getState()?.cart?.items
+          const items = await window.Snipcart.store.getState()?.cart?.items || []
           
-          if (items) {
-            items.forEach((item: any) => {
-              const product: Product = {
-                id: item.id,
-                name: item.name,
-                description: item.description,
-                price: item.price,
-                image: item.image,
-                category: item.categories?.[0] || '',
-                fabric: item.customFields?.fabric
-              }
-              addToCart(product, item.quantity)
-            })
-          }
+          const newCartItems = items.map((item: any) => ({
+            product: {
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              price: item.price,
+              image: item.image,
+              category: item.categories?.[0] || '',
+              fabric: item.customFields?.fabric
+            },
+            quantity: item.quantity
+          }))
+          
+          setCartItems(newCartItems)
         })
       })
+      setIsInitialized(true)
     }
-  }, []) // Empty dependency array since we only want to run this once
+  }, [isInitialized])
 
   const addToCart = (product: Product, quantity = 1) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.product.id === product.id)
-
+    setCartItems(prevItems => {
+      const existingItem = prevItems.find(item => item.product.id === product.id)
+      
       if (existingItem) {
-        return prevItems.map((item) =>
-          item.product.id === product.id ? { ...item, quantity: item.quantity + quantity } : item,
+        return prevItems.map(item =>
+          item.product.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         )
       }
-
+      
       return [...prevItems, { product, quantity }]
     })
   }
 
   const removeFromCart = (productId: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== productId))
+    setCartItems(prevItems => prevItems.filter(item => item.product.id !== productId))
   }
 
   const updateQuantity = (productId: string, quantity: number) => {
@@ -110,7 +110,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return
     }
 
-    setCartItems((prevItems) => prevItems.map((item) => (item.product.id === productId ? { ...item, quantity } : item)))
+    setCartItems(prevItems => 
+      prevItems.map(item => 
+        item.product.id === productId 
+          ? { ...item, quantity } 
+          : item
+      )
+    )
   }
 
   const clearCart = () => {
@@ -118,15 +124,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-      }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
       {children}
     </CartContext.Provider>
   )

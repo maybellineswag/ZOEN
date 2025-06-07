@@ -5,26 +5,25 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen overflow-hidden">
       {/* Video Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-10">
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="h-full w-full object-cover"
-          poster="/placeholder.svg?height=1080&width=1920"
+          className="h-full w-full object-cover scale-110"
+          poster="/placeholder.webp?height=1080&width=1920"
         >
           <source src="/placeholder.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black/40"></div> {/* Overlay for better text visibility */}
       </div>
 
-      <div className="container relative z-10 mx-auto flex h-full items-center px-4">
+      <div className="container relative z-20 mx-auto flex h-full items-center px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-medium tracking-tight text-white drop-shadow-md sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-medium tracking-tight text-white [text-shadow:_0_4px_8px_rgb(0_0_0_/_90%)] sm:text-5xl md:text-6xl">
             Elevate Your Space with ZOEN
           </h1>
-          <p className="mt-6 text-lg text-white/90 drop-shadow-md">
+          <p className="mt-6 text-lg text-white/90 [text-shadow:_0_4px_8px_rgb(0_0_0_/_90%)]">
             Premium home accessories crafted with care for the discerning customer. Our pillows blend luxury, comfort,
             and timeless design.
           </p>

@@ -52,14 +52,15 @@ export default function RootLayout({
         <div 
           hidden 
           id="snipcart" 
-          data-api-key={process.env.NEXT_PUBLIC_SNIPCART_API_KEY || "MjU5YWI3OTEtODZiNC00ZjBmLWFjYjMtM2ZjY2Q1MTRjOTc2NjM4ODE2MjQ4MTk0MzU5MjI2"}
+          data-api-key="MTM3ZTg4Y2EtYzhmNS00ZGU2LWI3YzMtZWFkOGIyMTI1YTdjNjM4ODE2MjQ4MTk0MzU5MjI2"
           data-config-modal-style="side"
           data-templates-url="/snipcart-templates.html"
           data-currency="USD"
           data-config-add-product-behavior="none"
           data-version="3.4.1"
-          data-config-mode="test"
+          data-config-mode="live"
           data-loading-screen-duration="0"
+          data-config-payment-methods="credit-card,stripe"
         ></div>
       </body>
     </html>

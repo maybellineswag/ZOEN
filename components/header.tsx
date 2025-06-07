@@ -4,11 +4,9 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X, ShoppingBag, Globe, DollarSign } from "lucide-react"
+import { Menu, X, ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/components/cart-provider"
-import { useCurrency } from "@/components/currency-provider"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -16,7 +14,6 @@ export default function Header() {
   const pathname = usePathname()
   const isHomePage = pathname === "/"
   const { cartItems } = useCart()
-  const { currency, setCurrency } = useCurrency()
 
   // Calculate total quantity of items in cart
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
@@ -41,7 +38,7 @@ export default function Header() {
   const headerClasses = isHomePage
     ? isScrolled
       ? "bg-cream/90 backdrop-blur-md shadow-sm text-off-black fixed"
-      : "bg-transparent text-white fixed"
+      : "bg-transparent text-off-black fixed"
     : "bg-cream shadow-sm text-off-black sticky" // Changed to sticky for non-home pages
 
   return (
@@ -55,7 +52,7 @@ export default function Header() {
                   src="/zoen-logo.svg"
                   alt="ZOEN"
                   fill
-                  className={`object-contain transition-all duration-300 ${isHomePage && !isScrolled ? '[filter:brightness(0)_invert(1)]' : ''}`}
+                  className="object-contain transition-all duration-300"
                   priority
                 />
               </Link>
@@ -77,32 +74,6 @@ export default function Header() {
             </nav>
 
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="hover:opacity-80 transition-colors !bg-transparent !p-1 sm:!p-3" aria-label="Change language">
-                    <Globe className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>English</DropdownMenuItem>
-                  <DropdownMenuItem>Español</DropdownMenuItem>
-                  <DropdownMenuItem>Français</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="hover:opacity-80 transition-colors !bg-transparent !p-1 sm:!p-3" aria-label="Change currency">
-                    <DollarSign className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>USD ($)</DropdownMenuItem>
-                  <DropdownMenuItem>EUR (€)</DropdownMenuItem>
-                  <DropdownMenuItem>GBP (£)</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
               <Button variant="ghost" size="icon" className="relative hover:opacity-80 transition-colors !bg-transparent !p-1 sm:!p-3 snipcart-checkout" aria-label="Shopping cart">
                 <ShoppingBag className="h-5 w-5" />
                 {totalQuantity > 0 && (
