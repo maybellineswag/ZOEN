@@ -36,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           data-item-description={product.description}
           data-item-image={product.image || "/placeholder.svg"}
           data-item-name={product.name}
-          data-item-url={`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/api/products/${product.id}`}
+          data-item-url={`/product/${product.id}`}
         >
           Add to Cart
         </button>
