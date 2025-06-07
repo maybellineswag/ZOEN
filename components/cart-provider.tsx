@@ -23,6 +23,7 @@ interface CartContextType {
   removeFromCart: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
+  getTotalPrice: () => number
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -31,77 +32,83 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [isInitialized, setIsInitialized] = useState(false)
 
+  // Function to sync cart with Snipcart
+  const syncCartWithSnipcart = async () => {
+    try {
+      // @ts-ignore - Snipcart types not available
+      const snipcartState = window.Snipcart.store.getState()
+      const items = snipcartState?.cart?.items || []
+      
+      if (!Array.isArray(items)) {
+        console.warn('Snipcart items is not an array:', items)
+        setCartItems([])
+        return
+      }
+
+      const newCartItems = items.map((item: any) => ({
+        product: {
+          id: item.id || '',
+          name: item.name || '',
+          description: item.description || '',
+          price: Number(item.price) || 0,
+          image: item.image || '',
+          category: item.categories?.[0] || '',
+          fabric: item.customFields?.fabric || ''
+        },
+        quantity: Number(item.quantity) || 0
+      }))
+      
+      setCartItems(newCartItems)
+    } catch (error) {
+      console.error('Error syncing cart with Snipcart:', error)
+      setCartItems([])
+    }
+  }
+
   useEffect(() => {
     if (typeof window !== 'undefined' && !isInitialized) {
-      document.addEventListener('snipcart.ready', () => {
+      const handleSnipcartReady = () => {
+        // Initial sync
+        syncCartWithSnipcart()
+
         // @ts-ignore - Snipcart types not available
-        window.Snipcart.events.on('item.added', (evt: any) => {
-          // Don't update our cart state when items are added through Snipcart
-          // This prevents double-counting
+        window.Snipcart.events.on('item.added', async () => {
+          await syncCartWithSnipcart()
         })
 
         // @ts-ignore - Snipcart types not available
-        window.Snipcart.events.on('item.removed', (evt: any) => {
-          const productId = evt.item.id
-          setCartItems(prevItems => prevItems.filter(item => item.product.id !== productId))
+        window.Snipcart.events.on('item.removed', async () => {
+          await syncCartWithSnipcart()
         })
 
         // @ts-ignore - Snipcart types not available
-        window.Snipcart.events.on('item.updated', (evt: any) => {
-          const productId = evt.item.id
-          const quantity = evt.item.quantity
-          setCartItems(prevItems => 
-            prevItems.map(item => 
-              item.product.id === productId 
-                ? { ...item, quantity } 
-                : item
-            )
-          )
+        window.Snipcart.events.on('item.updated', async () => {
+          await syncCartWithSnipcart()
         })
 
         // @ts-ignore - Snipcart types not available
         window.Snipcart.events.on('cart.ready', async () => {
-          // @ts-ignore - Snipcart types not available
-          const items = await window.Snipcart.store.getState()?.cart?.items || []
-          
-          const newCartItems = items.map((item: any) => ({
-            product: {
-              id: item.id,
-              name: item.name,
-              description: item.description,
-              price: item.price,
-              image: item.image,
-              category: item.categories?.[0] || '',
-              fabric: item.customFields?.fabric
-            },
-            quantity: item.quantity
-          }))
-          
-          setCartItems(newCartItems)
+          await syncCartWithSnipcart()
         })
-      })
+      }
+
+      document.addEventListener('snipcart.ready', handleSnipcartReady)
       setIsInitialized(true)
+
+      return () => {
+        document.removeEventListener('snipcart.ready', handleSnipcartReady)
+      }
     }
   }, [isInitialized])
 
   const addToCart = (product: Product, quantity = 1) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.product.id === product.id)
-      
-      if (existingItem) {
-        return prevItems.map(item =>
-          item.product.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
-      }
-      
-      return [...prevItems, { product, quantity }]
-    })
+    // Let Snipcart handle the add to cart
+    // Our local state will be updated through the item.added event
   }
 
   const removeFromCart = (productId: string) => {
-    setCartItems(prevItems => prevItems.filter(item => item.product.id !== productId))
+    // Let Snipcart handle the removal
+    // Our local state will be updated through the item.removed event
   }
 
   const updateQuantity = (productId: string, quantity: number) => {
@@ -109,22 +116,37 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeFromCart(productId)
       return
     }
-
-    setCartItems(prevItems => 
-      prevItems.map(item => 
-        item.product.id === productId 
-          ? { ...item, quantity } 
-          : item
-      )
-    )
+    // Let Snipcart handle the quantity update
+    // Our local state will be updated through the item.updated event
   }
 
   const clearCart = () => {
-    setCartItems([])
+    try {
+      // @ts-ignore - Snipcart types not available
+      window.Snipcart.api.cart.clear()
+      setCartItems([])
+    } catch (error) {
+      console.error('Error clearing cart:', error)
+    }
+  }
+
+  const getTotalPrice = () => {
+    return cartItems.reduce((total, item) => {
+      const itemPrice = Number(item.product.price)
+      const itemQuantity = Number(item.quantity)
+      return total + (itemPrice * itemQuantity)
+    }, 0)
   }
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
+    <CartContext.Provider value={{ 
+      cartItems, 
+      addToCart, 
+      removeFromCart, 
+      updateQuantity, 
+      clearCart,
+      getTotalPrice 
+    }}>
       {children}
     </CartContext.Provider>
   )

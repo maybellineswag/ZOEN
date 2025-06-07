@@ -10,9 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 
 export default function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false)
-  const { cartItems, removeFromCart, updateQuantity } = useCart()
-
-  const subtotal = cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0)
+  const { cartItems, removeFromCart, updateQuantity, getTotalPrice } = useCart()
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -21,7 +19,7 @@ export default function CartDrawer() {
           <ShoppingBag className="h-5 w-5" />
           {cartItems.length > 0 && (
             <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">
-              {cartItems.length}
+              {cartItems.reduce((total, item) => total + item.quantity, 0)}
             </span>
           )}
         </Button>
@@ -103,7 +101,9 @@ export default function CartDrawer() {
                             <Plus className="h-3 w-3" />
                           </Button>
                         </div>
-                        <p className="text-sm font-medium">${(item.product.price * item.quantity).toFixed(2)}</p>
+                        <p className="text-sm font-medium">
+                          ${(Number(item.product.price) * item.quantity).toFixed(2)}
+                        </p>
                       </div>
                     </div>
                   </li>
@@ -114,10 +114,10 @@ export default function CartDrawer() {
             <div className="border-t border-border py-4">
               <div className="flex justify-between">
                 <p className="text-sm">Subtotal</p>
-                <p className="text-sm font-medium">${subtotal.toFixed(2)}</p>
+                <p className="text-sm font-medium">${getTotalPrice().toFixed(2)}</p>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">Shipping and taxes calculated at checkout</p>
-              <Button className="mt-4 w-full">Checkout</Button>
+              <Button className="mt-4 w-full snipcart-checkout">Checkout</Button>
               <Button variant="outline" className="mt-2 w-full" onClick={() => setIsOpen(false)}>
                 Continue Shopping
               </Button>
