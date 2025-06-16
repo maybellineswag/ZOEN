@@ -58,7 +58,7 @@ export default function RootLayout({
           data-currency="USD"
           data-config-add-product-behavior="none"
           data-version="3.4.1"
-          data-config-mode="test"
+          data-config-mode="live"
           data-loading-screen-duration="0"
           data-config-payment-methods="credit-card,stripe"
         ></div>
