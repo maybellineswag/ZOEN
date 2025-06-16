@@ -202,7 +202,7 @@ export const products: Product[] = [
   },
   {
     id: "champagne",
-    name: "Champagne",
+    name: "Vodka",
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 299.99,
     image: "/products/champagne.png",
@@ -210,7 +210,7 @@ export const products: Product[] = [
   },
   {
     id: "vodka",
-    name: "Vodka",
+    name: "Champagne",
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 299.99,
     image: "/products/spiral.png",
