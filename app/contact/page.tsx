@@ -64,7 +64,7 @@ export default function ContactPage() {
 
                 <div>
                   <h3 className="text-lg font-medium mb-2">Call Us</h3>
-                  <p className="text-muted-foreground">+420 123 456 789</p>
+                  <p className="text-muted-foreground">+420 607 717 228</p>
                 </div>
               </div>
             </div>
