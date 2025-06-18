@@ -223,6 +223,30 @@ export const products: Product[] = [
     price: 299.99,
     image: "/products/tea.png",
     category: "coming-soon"
+  },
+  {
+    id: "candle",
+    name: "Candle 1",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 299.99,
+    image: "/products/candle.png",
+    category: "coming-soon"
+  },
+  {
+    id: "candle 2",
+    name: "Candle 2",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 299.99,
+    image: "/products/candle2.png",
+    category: "coming-soon"
+  },
+  {
+    id: "books",
+    name: "Books",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 299.99,
+    image: "/products/books.png",
+    category: "coming-soon"
   }
 ]
 
