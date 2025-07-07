@@ -7,6 +7,8 @@ import Footer from "@/components/footer"
 import { CartProvider } from "@/components/cart-provider"
 import { CurrencyProvider } from "@/components/currency-provider"
 import SnipcartScript from "./components/snipcart-script"
+import { LanguageProvider } from "@/components/language-provider"
+import SnipcartWrapper from "./components/snipcart-wrapper"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -38,15 +40,18 @@ export default function RootLayout({
         <link rel="stylesheet" href="/styles/snipcart-overrides.css" />
       </head>
       <body className={`${playfair.variable} ${inter.variable} bg-cream text-off-black`}>
-        <CartProvider>
-          <CurrencyProvider>
-            <div className="flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </CurrencyProvider>
-        </CartProvider>
+        <LanguageProvider>
+          <CartProvider>
+            <CurrencyProvider>
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+              <SnipcartWrapper />
+            </CurrencyProvider>
+          </CartProvider>
+        </LanguageProvider>
         
         <SnipcartScript />
         <div 
@@ -55,7 +60,7 @@ export default function RootLayout({
           data-api-key="MTM3ZTg4Y2EtYzhmNS00ZGU2LWI3YzMtZWFkOGIyMTI1YTdjNjM4ODE2MjQ4MTk0MzU5MjI2"
           data-config-modal-style="side"
           data-templates-url="/snipcart-templates.html"
-          data-currency="USD"
+          data-currency="CZK"
           data-config-add-product-behavior="none"
           data-version="3.4.1"
           data-config-mode="live"

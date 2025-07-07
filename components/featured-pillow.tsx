@@ -1,11 +1,39 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { getProductById } from "@/lib/products"
+import { useLanguage } from "@/components/language-provider"
 
 export default function FeaturedPillow() {
   // Get the featured pillow (using the first one for this example)
   const featuredPillow = getProductById("pillow-1")
+
+  const { language } = useLanguage()
+  const t = {
+    en: {
+      title: "Discover Our Signature Piece",
+      materials: "Premium Materials",
+      handcrafted: "Handcrafted Excellence",
+      timeless: "Timeless Design",
+      explore: "Explore"
+    },
+    cz: {
+      title: "Objevte náš podpisový kousek",
+      materials: "Prémiové materiály",
+      handcrafted: "Ručně vyrobená dokonalost",
+      timeless: "Nadčasový design",
+      explore: "Prozkoumat"
+    },
+    ru: {
+      title: "Откройте для себя нашу фирменную вещь",
+      materials: "Премиальные материалы",
+      handcrafted: "Ручная работа",
+      timeless: "Вечный дизайн",
+      explore: "Подробнее"
+    }
+  }[language]
 
   if (!featuredPillow) return null
 
@@ -14,29 +42,29 @@ export default function FeaturedPillow() {
       <div className="container mx-auto px-4 md:px-12 lg:px-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-medium mb-6">Discover Our Signature Piece</h2>
+            <h2 className="text-3xl md:text-4xl font-medium mb-6">{t.title}</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-md">{featuredPillow.description}</p>
 
             <div className="space-y-6">
               <div className="flex items-center">
                 <div className="w-12 h-px bg-off-black"></div>
-                <span className="ml-4 text-sm uppercase tracking-wider">Premium Materials</span>
+                <span className="ml-4 text-sm uppercase tracking-wider">{t.materials}</span>
               </div>
 
               <div className="flex items-center">
                 <div className="w-12 h-px bg-off-black"></div>
-                <span className="ml-4 text-sm uppercase tracking-wider">Handcrafted Excellence</span>
+                <span className="ml-4 text-sm uppercase tracking-wider">{t.handcrafted}</span>
               </div>
 
               <div className="flex items-center">
                 <div className="w-12 h-px bg-off-black"></div>
-                <span className="ml-4 text-sm uppercase tracking-wider">Timeless Design</span>
+                <span className="ml-4 text-sm uppercase tracking-wider">{t.timeless}</span>
               </div>
             </div>
 
             <div className="mt-10">
               <Button asChild size="lg" className="px-8">
-                <Link href={`/product/${featuredPillow.id}`}>Explore</Link>
+                <Link href={`/product/${featuredPillow.id}`}>{t.explore}</Link>
               </Button>
             </div>
           </div>

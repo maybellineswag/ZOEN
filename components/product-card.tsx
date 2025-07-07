@@ -1,13 +1,23 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import type { Product } from "@/components/cart-provider"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/components/language-provider"
 
 interface ProductCardProps {
   product: Product
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { language } = useLanguage()
+  const t = {
+    en: { addToCart: "Add to Cart" },
+    cz: { addToCart: "Přidat do košíku" },
+    ru: { addToCart: "Добавить в корзину" }
+  }[language]
+
   return (
     <div className="product-card relative overflow-hidden rounded-lg bg-background transition-all">
       <Link href={`/product/${product.id}`} className="group block">
@@ -38,7 +48,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           data-item-name={product.name}
           data-item-url={`/product/${product.id}`}
         >
-          Add to Cart
+          {t.addToCart}
         </button>
       </div>
     </div>

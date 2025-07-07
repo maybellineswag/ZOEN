@@ -1,7 +1,32 @@
+'use client'
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/components/language-provider"
 
 export default function HeroSection() {
+  const { language } = useLanguage()
+  const t = {
+    en: {
+      title: "Elevate Your Space with ZOEN",
+      desc: "Premium home accessories crafted with care for the discerning customer. Our pillows blend luxury, comfort, and timeless design.",
+      shop: "Shop Collection",
+      newsletter: "Newsletter"
+    },
+    cz: {
+      title: "Pozvedněte svůj domov se ZOEN",
+      desc: "Prémiové bytové doplňky vyrobené s péčí pro náročné zákazníky. Naše polštáře spojují luxus, pohodlí a nadčasový design.",
+      shop: "Prohlédnout kolekci",
+      newsletter: "Newsletter"
+    },
+    ru: {
+      title: "Украсьте свой дом с ZOEN",
+      desc: "Премиальные аксессуары для дома, созданные с заботой для взыскательных клиентов. Наши подушки сочетают роскошь, комфорт и вечный дизайн.",
+      shop: "Смотреть коллекцию",
+      newsletter: "Newsletter"
+    }
+  }[language]
+
   return (
     <section className="relative h-screen overflow-hidden flex items-center justify-center">
       {/* Video Background */}
@@ -16,15 +41,14 @@ export default function HeroSection() {
       <div className="container relative z-20 mx-auto flex h-full items-center px-4 mt-64">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-medium tracking-tight text-[#8b5733] sm:text-5xl md:text-6xl">
-            Elevate Your Space with ZOEN
+            {t.title}
           </h1>
           <p className="mt-6 text-lg text-[#8b5733]">
-            Premium home accessories crafted with care for the discerning customer. Our pillows blend luxury, comfort,
-            and timeless design.
+            {t.desc}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" className="min-w-[150px] bg-[#8b5733] text-white hover:bg-[#a06a43] border-[#8b5733]">
-              <Link href="/shop">Shop Collection</Link>
+              <Link href="/shop">{t.shop}</Link>
             </Button>
             <Button
               asChild
@@ -32,7 +56,7 @@ export default function HeroSection() {
               size="lg"
               className="min-w-[150px] border-[#8b5733] text-[#8b5733] bg-transparent hover:bg-[#8b573310]"
             >
-              <Link href="/newsletter">Newsletter</Link>
+              <Link href="/newsletter">{t.newsletter}</Link>
             </Button>
           </div>
         </div>

@@ -1,18 +1,39 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { getProductsByCategory } from "@/lib/products"
+import { useLanguage } from "@/components/language-provider"
 
 export default function ComingSoonSection() {
+  const { language } = useLanguage()
+  const t = {
+    en: {
+      title: "Coming Soon",
+      desc: "Explore our upcoming collection of premium robes and loungewear, designed for ultimate comfort and style.",
+      notify: "Get Notified"
+    },
+    cz: {
+      title: "Již brzy",
+      desc: "Prozkoumejte naši připravovanou kolekci prémiových županů a domácího oblečení navržených pro maximální pohodlí a styl.",
+      notify: "Chci upozornění"
+    },
+    ru: {
+      title: "Скоро в продаже",
+      desc: "Ознакомьтесь с нашей предстоящей коллекцией премиальных халатов и домашней одежды, созданных для максимального комфорта и стиля.",
+      notify: "Уведомить меня"
+    }
+  }[language]
   const comingSoonProducts = getProductsByCategory("coming-soon")
 
   return (
     <section className="gradient-bg py-16 md:py-24">
       <div className="container mx-auto px-4 md:px-12 lg:px-24">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">Coming Soon</h2>
+          <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">{t.title}</h2>
           <p className="mt-4 text-muted-foreground">
-            Explore our upcoming collection of premium robes and loungewear, designed for ultimate comfort and style.
+            {t.desc}
           </p>
         </div>
 
@@ -41,7 +62,7 @@ export default function ComingSoonSection() {
 
         <div className="mt-12 text-center">
           <Button asChild variant="outline">
-            <Link href="/newsletter">Get Notified</Link>
+            <Link href="/newsletter">{t.notify}</Link>
           </Button>
         </div>
       </div>

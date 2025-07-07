@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import ProductGrid from "@/components/product-grid"
 import { products } from "@/lib/products"
+import { useLanguage } from "@/components/language-provider"
 
 export default function ShopPage() {
   const searchParams = useSearchParams()
@@ -19,10 +20,95 @@ export default function ShopPage() {
 
   const fabrics = Array.from(new Set(products.filter((p) => p.fabric).map((p) => p.fabric as string))).sort()
 
+  const { language } = useLanguage()
+  const t = {
+    en: {
+      shopCollection: "Shop Collection",
+      product: "product",
+      products: "products",
+      filter: "Filter",
+      filters: "Filters",
+      category: "Category",
+      all: "All",
+      fabric: "Fabric",
+      noProducts: "No products found",
+      tryChanging: "Try changing your filters or check back later.",
+      pillows: "Pillows",
+      comingSoon: "Coming Soon"
+    },
+    cz: {
+      shopCollection: "Obchodní kolekce",
+      product: "produkt",
+      products: "produkty",
+      filter: "Filtrovat",
+      filters: "Filtry",
+      category: "Kategorie",
+      all: "Vše",
+      fabric: "Látka",
+      noProducts: "Žádné produkty nenalezeny",
+      tryChanging: "Zkuste změnit filtry nebo se vraťte později.",
+      pillows: "Polštáře",
+      comingSoon: "Již brzy"
+    },
+    ru: {
+      shopCollection: "Коллекция товаров",
+      product: "товар",
+      products: "товары",
+      filter: "Фильтр",
+      filters: "Фильтры",
+      category: "Категория",
+      all: "Все",
+      fabric: "Ткань",
+      noProducts: "Товары не найдены",
+      tryChanging: "Попробуйте изменить фильтры или зайдите позже.",
+      pillows: "Подушки",
+      comingSoon: "Скоро в продаже"
+    }
+  }[language]
+
   const categories = [
-    { id: "pillows", name: "Pillows" },
-    { id: "coming-soon", name: "Coming Soon" },
+    { id: "pillows", name: t.pillows },
+    { id: "coming-soon", name: t.comingSoon },
   ]
+
+  const fabricTranslations = {
+    en: {
+      linen: "Linen",
+      velvet: "Velvet",
+      alpaca: "Alpaca",
+      cashmere: "Cashmere",
+      wool: "Wool",
+      mohair: "Mohair",
+      jacquard: "Jacquard",
+      cotton: "Cotton",
+      boucle: "Bouclé",
+      silk: "Silk"
+    },
+    cz: {
+      linen: "Len",
+      velvet: "Samet",
+      alpaca: "Alpaka",
+      cashmere: "Kašmír",
+      wool: "Vlna",
+      mohair: "Mohér",
+      jacquard: "Žakár",
+      cotton: "Bavlna",
+      boucle: "Buklé",
+      silk: "Hedvábí"
+    },
+    ru: {
+      linen: "Лён",
+      velvet: "Бархат",
+      alpaca: "Альпака",
+      cashmere: "Кашемир",
+      wool: "Шерсть",
+      mohair: "Мохер",
+      jacquard: "Жаккард",
+      cotton: "Хлопок",
+      boucle: "Букле",
+      silk: "Шёлк"
+    }
+  };
 
   const filteredProducts = products.filter((product) => {
     if (selectedCategory && product.category !== selectedCategory) {
@@ -54,9 +140,9 @@ export default function ShopPage() {
     <div className="container mx-auto px-4 md:px-12 lg:px-24 py-8 md:py-12">
       <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-medium">Shop Collection</h1>
+          <h1 className="text-3xl font-medium">{t.shopCollection}</h1>
           <p className="mt-2 text-muted-foreground">
-            {filteredProducts.length} product{filteredProducts.length !== 1 ? "s" : ""}
+            {filteredProducts.length} {filteredProducts.length === 1 ? t.product : t.products}
           </p>
         </div>
 
@@ -65,23 +151,23 @@ export default function ShopPage() {
             <SheetTrigger asChild>
               <Button variant="outline" size="sm" className="md:hidden">
                 <Filter className="mr-2 h-4 w-4" />
-                Filter
+                {t.filter}
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
               <SheetHeader>
-                <SheetTitle>Filters</SheetTitle>
+                <SheetTitle>{t.filters}</SheetTitle>
               </SheetHeader>
               <div className="mt-6 space-y-6">
                 <div>
-                  <h3 className="text-sm font-medium">Category</h3>
+                  <h3 className="text-sm font-medium">{t.category}</h3>
                   <div className="mt-4 space-y-2">
                     <Label className="flex items-center gap-2 font-normal">
                       <Checkbox
                         checked={selectedCategory === null}
                         onCheckedChange={() => handleCategoryChange(null)}
                       />
-                      All
+                      {t.all}
                     </Label>
                     {categories.map((category) => (
                       <Label key={category.id} className="flex items-center gap-2 font-normal">
@@ -96,7 +182,7 @@ export default function ShopPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-medium">Fabric</h3>
+                  <h3 className="text-sm font-medium">{t.fabric}</h3>
                   <div className="mt-4 space-y-2">
                     {fabrics.map((fabric) => (
                       <Label key={fabric} className="flex items-center gap-2 font-normal">
@@ -104,7 +190,7 @@ export default function ShopPage() {
                           checked={selectedFabric.includes(fabric)}
                           onCheckedChange={() => handleFabricChange(fabric)}
                         />
-                        {fabric.charAt(0).toUpperCase() + fabric.slice(1)}
+                        {(fabricTranslations[language] as Record<string, string>)[fabric] || (fabric.charAt(0).toUpperCase() + fabric.slice(1))}
                       </Label>
                     ))}
                   </div>
@@ -119,11 +205,11 @@ export default function ShopPage() {
         <div className="hidden md:block">
           <div className="space-y-6">
             <div>
-              <h3 className="text-sm font-medium">Category</h3>
+              <h3 className="text-sm font-medium">{t.category}</h3>
               <div className="mt-4 space-y-2">
                 <Label className="flex items-center gap-2 font-normal">
                   <Checkbox checked={selectedCategory === null} onCheckedChange={() => handleCategoryChange(null)} />
-                  All
+                  {t.all}
                 </Label>
                 {categories.map((category) => (
                   <Label key={category.id} className="flex items-center gap-2 font-normal">
@@ -138,7 +224,7 @@ export default function ShopPage() {
             </div>
 
             <div>
-              <h3 className="text-sm font-medium">Fabric</h3>
+              <h3 className="text-sm font-medium">{t.fabric}</h3>
               <div className="mt-4 space-y-2">
                 {fabrics.map((fabric) => (
                   <Label key={fabric} className="flex items-center gap-2 font-normal">
@@ -146,7 +232,7 @@ export default function ShopPage() {
                       checked={selectedFabric.includes(fabric)}
                       onCheckedChange={() => handleFabricChange(fabric)}
                     />
-                    {fabric.charAt(0).toUpperCase() + fabric.slice(1)}
+                    {(fabricTranslations[language] as Record<string, string>)[fabric] || (fabric.charAt(0).toUpperCase() + fabric.slice(1))}
                   </Label>
                 ))}
               </div>
@@ -159,8 +245,8 @@ export default function ShopPage() {
             <ProductGrid products={filteredProducts} />
           ) : (
             <div className="flex h-60 flex-col items-center justify-center rounded-lg border border-dashed">
-              <p className="text-lg font-medium">No products found</p>
-              <p className="mt-1 text-sm text-muted-foreground">Try changing your filters or check back later.</p>
+              <p className="text-lg font-medium">{t.noProducts}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{t.tryChanging}</p>
             </div>
           )}
         </div>

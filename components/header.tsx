@@ -7,13 +7,21 @@ import { usePathname } from "next/navigation"
 import { Menu, X, ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/components/cart-provider"
+import { useLanguage } from "@/components/language-provider"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const { language, setLanguage } = useLanguage()
   const pathname = usePathname()
   const isHomePage = pathname === "/"
   const { cartItems } = useCart()
+
+  const t = {
+    en: { home: "Home", shop: "Shop", about: "About", contact: "Contact" },
+    cz: { home: "Domů", shop: "Obchod", about: "O nás", contact: "Kontakt" },
+    ru: { home: "Главная", shop: "Магазин", about: "О нас", contact: "Контакты" }
+  }[language]
 
   // Calculate total quantity of items in cart
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
@@ -60,20 +68,47 @@ export default function Header() {
 
             <nav className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-sm font-medium hover:opacity-80 transition-colors ysl-hover-line">
-                Home
+                {t.home}
               </Link>
               <Link href="/shop" className="text-sm font-medium hover:opacity-80 transition-colors ysl-hover-line">
-                Shop
+                {t.shop}
               </Link>
               <Link href="/about" className="text-sm font-medium hover:opacity-80 transition-colors ysl-hover-line">
-                About
+                {t.about}
               </Link>
               <Link href="/contact" className="text-sm font-medium hover:opacity-80 transition-colors ysl-hover-line">
-                Contact
+                {t.contact}
               </Link>
             </nav>
 
             <div className="flex items-center space-x-2 sm:space-x-4">
+              {/* Language Switcher */}
+              <div className="flex items-center space-x-2 font-inter text-xs sm:text-sm uppercase tracking-wider">
+                <button
+                  className={`ysl-button text-off-black hover:text-[#8b5733] focus:outline-none${language === 'cz' ? ' font-bold underline' : ''}`}
+                  aria-label="Switch to Czech"
+                  onClick={() => setLanguage('cz')}
+                >
+                  CZ
+                </button>
+                <span className="opacity-50">|</span>
+                <button
+                  className={`ysl-button text-off-black hover:text-[#8b5733] focus:outline-none${language === 'en' ? ' font-bold underline' : ''}`}
+                  aria-label="Switch to English"
+                  onClick={() => setLanguage('en')}
+                >
+                  EN
+                </button>
+                <span className="opacity-50">|</span>
+                <button
+                  className={`ysl-button text-off-black hover:text-[#8b5733] focus:outline-none${language === 'ru' ? ' font-bold underline' : ''}`}
+                  aria-label="Switch to Russian"
+                  onClick={() => setLanguage('ru')}
+                >
+                  RU
+                </button>
+              </div>
+              {/* Cart Icon */}
               <Button variant="ghost" size="icon" className="relative hover:opacity-80 transition-colors !bg-transparent !p-1 sm:!p-3 snipcart-checkout" aria-label="Shopping cart">
                 <ShoppingBag className="h-5 w-5" />
                 {totalQuantity > 0 && (
@@ -120,16 +155,16 @@ export default function Header() {
 
             <nav className="mt-8 flex flex-col space-y-6">
               <Link href="/" className="text-lg font-medium hover:opacity-80 transition-colors ysl-hover-line" onClick={() => setIsMenuOpen(false)}>
-                Home
+                {t.home}
               </Link>
               <Link href="/shop" className="text-lg font-medium hover:opacity-80 transition-colors ysl-hover-line" onClick={() => setIsMenuOpen(false)}>
-                Shop
+                {t.shop}
               </Link>
               <Link href="/about" className="text-lg font-medium hover:opacity-80 transition-colors ysl-hover-line" onClick={() => setIsMenuOpen(false)}>
-                About
+                {t.about}
               </Link>
               <Link href="/contact" className="text-lg font-medium hover:opacity-80 transition-colors ysl-hover-line" onClick={() => setIsMenuOpen(false)}>
-                Contact
+                {t.contact}
               </Link>
             </nav>
           </div>
