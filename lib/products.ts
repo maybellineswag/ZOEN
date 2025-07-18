@@ -6,17 +6,19 @@ export interface Product {
   image: string
   category: string
   fabric?: string
+  dimensions?: string
 }
 
 export const products: Product[] = [
   {
     id: "city-traffic-pillow",
     name: "City Traffic Pillow",
-    description: "Handcrafted premium linen pillow with elegant embroidery. Perfect for adding a touch of sophistication to your living space.",
+    description: "A plush, decorative pillow designed to bring comfort and style to any room.",
     price: 29.99,
     image: "/products/city-traffic.png",
     category: "pillows",
-    fabric: "linen"
+    fabric: "linen",
+    dimensions: "50x50 cm"
   },
   {
     id: "city-bridge",
@@ -25,7 +27,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/city-bridge.png",
     category: "pillows",
-    fabric: "velvet"
+    fabric: "velvet",
+    dimensions: "50x50 cm"
   },
   {
     id: "forest",
@@ -34,7 +37,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/forest.png",
     category: "pillows",
-    fabric: "linen"
+    fabric: "linen",
+    dimensions: "50x50 cm"
   },
   {
     id: "medusa",
@@ -43,7 +47,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/medusa.png",
     category: "pillows",
-    fabric: "alpaca"
+    fabric: "alpaca",
+    dimensions: "50x50 cm"
   },
   {
     id: "medusa-2",
@@ -52,7 +57,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/medusa-2.png",
     category: "pillows",
-    fabric: "linen"
+    fabric: "linen",
+    dimensions: "50x50 cm"
   },
   {
     id: "love-pillow",
@@ -61,7 +67,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/love-pillow.png",
     category: "pillows",
-    fabric: "cashmere"
+    fabric: "cashmere",
+    dimensions: "50x50 cm"
   },
   
  
@@ -72,7 +79,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/blue-flower.png",
     category: "pillows",
-    fabric: "wool"
+    fabric: "wool",
+    dimensions: "50x50 cm"
   },
   {
     id: "red-flower",
@@ -81,7 +89,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/red-flower.png",
     category: "pillows",
-    fabric: "linen"
+    fabric: "linen",
+    dimensions: "50x50 cm"
   },
   {
     id: "paint-splatter",
@@ -90,7 +99,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/paint-splatter.png",
     category: "pillows",
-    fabric: "wool"
+    fabric: "wool",
+    dimensions: "50x50 cm"
   },
   {
     id: "fish&cats",
@@ -99,7 +109,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/fish&cats2.png",
     category: "pillows",
-    fabric: "mohair"
+    fabric: "mohair",
+    dimensions: "50x50 cm"
   },
   {
     id: "fish&cats-2",
@@ -108,7 +119,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/fish&cats3.png",
     category: "pillows",
-    fabric: "alpaca"
+    fabric: "alpaca",
+    dimensions: "50x50 cm"
   },
   {
     id: "fish&cats-3",
@@ -117,7 +129,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/fish&cats.png",
     category: "pillows",
-    fabric: "jacquard"
+    fabric: "jacquard",
+    dimensions: "50x50 cm"
   },
   {
     id: "abstraction",
@@ -126,7 +139,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/abstraction.png",
     category: "pillows",
-    fabric: "cotton"
+    fabric: "cotton",
+    dimensions: "50x50 cm"
   },
   {
     id: "abstraction-2",
@@ -135,7 +149,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/abstraction-2.png",
     category: "pillows",
-    fabric: "boucle"
+    fabric: "boucle",
+    dimensions: "50x50 cm"
   },
   
   {
@@ -145,16 +160,18 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/abstraction3.png",
     category: "pillows",
-    fabric: "wool"
+    fabric: "wool",
+    dimensions: "50x50 cm"
   },
   {
     id: "eye-painting-pillow",
     name: "Eye Painting Pillow",
-    description: "Soft and sustainable organic cotton throw. Perfect for snuggling up on the couch or adding a layer of warmth to your bed.",
+    description: "Soft and supportive, this pillow is perfect for relaxing on the couch or adding a cozy touch to your bed.",
     price: 29.99,
     image: "/products/eye-painting.png",
     category: "pillows",
-    fabric: "cotton"
+    fabric: "cotton",
+    dimensions: "50x50 cm"
   },
 
   {
@@ -164,7 +181,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/meditation.png",
     category: "pillows",
-    fabric: "silk"
+    fabric: "silk",
+    dimensions: "50x50 cm"
   },
   {
     id: "wine",
@@ -173,7 +191,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/wine.png",
     category: "pillows",
-    fabric: "linen"
+    fabric: "linen",
+    dimensions: "50x50 cm"
   },
   {
     id: "music",
@@ -182,7 +201,8 @@ export const products: Product[] = [
     price: 29.99,
     image: "/products/music1.png",
     category: "pillows",
-    fabric: "wool"
+    fabric: "wool",
+    dimensions: "50x50 cm"
   },
   {
     id: "music2",
@@ -190,7 +210,8 @@ export const products: Product[] = [
     description: "Coming Soon - Our signature robe crafted from premium stonewashed linen for ultimate comfort and elegance.",
     price: 29.99,
     image: "/products/music2.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
   },
   {
     id: "music-3",
@@ -198,7 +219,8 @@ export const products: Product[] = [
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 29.99,
     image: "/products/music3.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
   },
   {
     id: "champagne",
@@ -206,7 +228,8 @@ export const products: Product[] = [
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 29.99,
     image: "/products/champagne.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
   },
   {
     id: "vodka",
@@ -214,7 +237,8 @@ export const products: Product[] = [
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 29.99,
     image: "/products/spiral.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
   },
   {
     id: "tea",
@@ -222,7 +246,8 @@ export const products: Product[] = [
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 29.99,
     image: "/products/tea.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
   },
   {
     id: "candle",
@@ -230,7 +255,8 @@ export const products: Product[] = [
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 29.99,
     image: "/products/candle.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
   },
   {
     id: "candle 2",
@@ -238,7 +264,8 @@ export const products: Product[] = [
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 29.99,
     image: "/products/candle2.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
   },
   {
     id: "books",
@@ -246,7 +273,62 @@ export const products: Product[] = [
     description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
     price: 29.99,
     image: "/products/books.png",
-    category: "coming-soon"
+    category: "pillows",
+    dimensions: "50x50 cm"
+  },
+  {
+    id: "heat",
+    name: "Heat 1",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 29.99,
+    image: "/products/heat.png",
+    category: "pillows",
+    dimensions: "50x50 cm"
+  },
+  {
+    id: "heat2",
+    name: "Heat 2",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 29.99,
+    image: "/products/heat2.png",
+    category: "pillows",
+    dimensions: "50x50 cm"
+  },
+  {
+    id: "heat3",
+    name: "Heat 3",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 29.99,
+    image: "/products/heat3.png",
+    category: "pillows",
+    dimensions: "50x50 cm"
+  },
+  {
+    id: "breakfast",
+    name: "Breakfast 1",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 29.99,
+    image: "/products/grapes.png",
+    category: "pillows",
+    dimensions: "50x50 cm"
+  },
+  {
+    id: "breakfast2",
+    name: "Breakfast 2",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 29.99,
+    image: "/products/grapes2.png",
+    category: "pillows",
+    dimensions: "50x50 cm"
+  },
+  {
+    id: "breakfast3",
+    name: "Breakfast 3",
+    description: "Coming Soon - Luxurious loungewear set in 100% cashmere for the ultimate in relaxed sophistication.",
+    price: 29.99,
+    image: "/products/grapes3.png",
+    category: "pillows",
+    dimensions: "50x50 cm"
   }
 ]
 
