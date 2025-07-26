@@ -107,12 +107,26 @@ export default function TestProductPage() {
               data-item-image={testProduct.image || "/placeholder.svg"}
               data-item-name={testProduct.name}
               data-item-url={`/test-product`}
-              onClick={handleAddToCart}
+              data-item-quantity={quantity}
             >
               🧪 Test Purchase - ${(testProduct.price * quantity).toFixed(2)}
             </Button>
             <Button variant="outline" size="icon" aria-label="Add to wishlist">
               <Heart className="h-5 w-5" />
+            </Button>
+          </div>
+
+          {/* Debug button to test if page is working */}
+          <div className="mt-4">
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                alert('Page is working! Snipcart should handle the purchase.')
+                console.log('Test button clicked')
+              }}
+              className="w-full"
+            >
+              🔧 Debug: Test if page works
             </Button>
           </div>
 
