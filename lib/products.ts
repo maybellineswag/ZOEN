@@ -332,7 +332,22 @@ export const products: Product[] = [
   }
 ]
 
+// Test product for payment testing - not included in main catalog
+export const testProduct: Product = {
+  id: "test-pillow-1",
+  name: "Test Pillow - $1",
+  description: "This is a test product for payment verification. Perfect for testing the checkout process without spending much money.",
+  price: 1.00,
+  image: "/products/city-traffic.png", // Using existing image
+  category: "test",
+  fabric: "test",
+  dimensions: "Test size"
+}
+
 export function getProductById(id: string): Product | undefined {
+  if (id === "test-pillow-1") {
+    return testProduct
+  }
   return products.find(product => product.id === id)
 }
 
