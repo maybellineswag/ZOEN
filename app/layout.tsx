@@ -38,6 +38,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://cdn.snipcart.com" />
         <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.css" />
         <link rel="stylesheet" href="/styles/snipcart-overrides.css" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={`${playfair.variable} ${inter.variable} bg-cream text-off-black`}>
         <LanguageProvider>
@@ -52,21 +53,6 @@ export default function RootLayout({
             </CurrencyProvider>
           </CartProvider>
         </LanguageProvider>
-        
-        <SnipcartScript />
-        <div 
-          hidden 
-          id="snipcart" 
-          data-api-key="MTM3ZTg4Y2EtYzhmNS00ZGU2LWI3YzMtZWFkOGIyMTI1YTdjNjM4ODE2MjQ4MTk0MzU5MjI2"
-          data-config-modal-style="side"
-          data-templates-url="/snipcart-templates.html"
-          data-currency="CZK"
-          data-config-add-product-behavior="none"
-          data-version="3.4.1"
-          data-config-mode="live"
-          data-loading-screen-duration="0"
-          data-config-payment-methods="credit-card,stripe"
-        ></div>
       </body>
     </html>
   )

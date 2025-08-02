@@ -8,6 +8,11 @@ export default function SnipcartWrapper() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    const apiKey = process.env.NEXT_PUBLIC_SNIPCART_API_KEY
+    console.log('SnipcartWrapper: API Key:', apiKey)
+    console.log('SnipcartWrapper: API Key length:', apiKey?.length)
+    console.log('SnipcartWrapper: API Key starts with:', apiKey?.substring(0, 10))
+    console.log('SnipcartWrapper: Currency:', currency)
     setReady(true)
   }, [currency])
 
@@ -16,17 +21,12 @@ export default function SnipcartWrapper() {
       <div
         hidden
         id="snipcart"
-        data-api-key="MTM3ZTg4Y2EtYzhmNS00ZGU2LWI3YzMtZWFkOGIyMTI1YTdjNjM4ODE2MjQ4MTk0MzU5MjI2"
-        data-config-modal-style="side"
-        data-templates-url="/snipcart-templates.html"
+        data-api-key="MjU5YWI3OTEtODZiNC00ZjBmLWFjYjMtM2ZjY2Q1MTRjOTc2NjM4ODE2MjQ4MTk0MzU5MjI2"
         data-currency={currency}
         data-config-add-product-behavior="none"
         data-version="3.4.1"
         data-config-mode="live"
-        data-loading-screen-duration="0"
         data-config-payment-methods="credit-card,stripe"
-        data-config-shipping-address-required="true"
-        data-config-shipping-address-same-as-billing="true"
       ></div>
       {ready && <SnipcartScript />}
     </>
