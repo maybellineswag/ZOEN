@@ -25,6 +25,8 @@ export default function SnipcartWrapper() {
         data-config-mode="live"
         data-loading-screen-duration="0"
         data-config-payment-methods="credit-card,stripe"
+        data-config-shipping-address-required="true"
+        data-config-shipping-address-same-as-billing="true"
       ></div>
       {ready && <SnipcartScript />}
     </>

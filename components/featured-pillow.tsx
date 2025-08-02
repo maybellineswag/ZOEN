@@ -8,7 +8,7 @@ import { useLanguage } from "@/components/language-provider"
 
 export default function FeaturedPillow() {
   // Get the featured pillow (using the first one for this example)
-  const featuredPillow = getProductById("pillow-1")
+  const featuredPillow = getProductById("city-traffic-pillow")
 
   const { language } = useLanguage()
   const t = {

@@ -336,6 +336,10 @@ export function getProductsByCategory(category: string): Product[] {
   return products.filter(product => product.category === category)
 }
 
+export function getProductById(id: string): Product | undefined {
+  return products.find(product => product.id === id)
+}
+
 export function getProductsByFabric(fabric: string): Product[] {
   return products.filter(product => product.fabric === fabric)
 }
