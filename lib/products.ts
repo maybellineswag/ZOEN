@@ -12,9 +12,9 @@ export interface Product {
 export const products: Product[] = [
   {
     id: "city-traffic-pillow",
-    name: "City Traffic Pillow",
-    description: "A plush, decorative pillow designed to bring comfort and style to any room.",
-    price: 29.99,
+    name: "City Traffic Pillow - TEST $1",
+    description: "🧪 TEST PRODUCT - A plush, decorative pillow designed to bring comfort and style to any room. Perfect for testing the checkout process!",
+    price: 1.00,
     image: "/products/city-traffic.png",
     category: "pillows",
     fabric: "linen",
@@ -331,25 +331,6 @@ export const products: Product[] = [
     dimensions: "50x50 cm"
   }
 ]
-
-// Test product for payment testing - not included in main catalog
-export const testProduct: Product = {
-  id: "test-pillow-1",
-  name: "Test Pillow - $1",
-  description: "This is a test product for payment verification. Perfect for testing the checkout process without spending much money.",
-  price: 1.00,
-  image: "/products/city-traffic.png", // Using existing image
-  category: "test",
-  fabric: "test",
-  dimensions: "Test size"
-}
-
-export function getProductById(id: string): Product | undefined {
-  if (id === "test-pillow-1") {
-    return testProduct
-  }
-  return products.find(product => product.id === id)
-}
 
 export function getProductsByCategory(category: string): Product[] {
   return products.filter(product => product.category === category)
